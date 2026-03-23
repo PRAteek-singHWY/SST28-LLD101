@@ -3,8 +3,8 @@ package com.example.pen;
 public class FountainPen extends Pen implements Refillable {
     private double inkLevel;
 
-    public FountainPen(String brand) {
-        super(brand, PenType.FOUNTAIN_PEN);
+    public FountainPen(Color color) {
+        super(color, PenType.FOUNTAIN_PEN);
         this.inkLevel = 100.0;
     }
 
@@ -17,12 +17,12 @@ public class FountainPen extends Pen implements Refillable {
 
         if (inkLevel <= 0) {
             state = PenState.EMPTY;
-            System.out.println("Cannot write. The pen is empty.");
+            System.out.println("The pen is empty.");
             return;
         }
 
-        System.out.println("Writing elegantly with Fountain Pen: " + content);
-        inkLevel -= 10.0;
+        System.out.println("Writing elegantly in " + color + " with Fountain Pen: " + content);
+        inkLevel -= 10.0; // Consumes the most ink
 
         if (inkLevel <= 0) {
             inkLevel = 0;
@@ -31,11 +31,11 @@ public class FountainPen extends Pen implements Refillable {
     }
 
     @Override
-    public void refill(boolean full) {
-        this.inkLevel = full ? 100.0 : this.inkLevel + 50.0;
-        if (this.inkLevel > 100.0) this.inkLevel = 100.0;
+    public void refill(Color newColor) {
+        this.color = newColor; // Answers: "Can the color of pen be changed?" -> Yes!
+        this.inkLevel = 100.0;
 
-        System.out.println(brand + " Fountain Pen refilled. Ink: " + inkLevel + "%");
+        System.out.println("Fountain Pen refilled with " + color + " premium ink. Ink: " + inkLevel + "%");
         state = PenState.CLOSED;
     }
 }

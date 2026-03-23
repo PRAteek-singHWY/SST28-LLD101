@@ -3,34 +3,36 @@ package com.example.pen;
 public class App {
     public static void main(String[] args) {
         System.out.println("=== Testing Ball Pen ===");
-        Pen reynolds = new BallPen("Reynolds");
-        reynolds.write("Hello World"); // Should fail, not open
-        reynolds.start();              // Opens the pen
-        reynolds.write("Hello World"); // Should succeed
-        reynolds.close();
+        Pen bluePen = new BallPen(Color.BLUE);
+        bluePen.write("Hello World"); // Should fail, not open
+        bluePen.start();              // Opens the pen (cap removed or clicked)
+        bluePen.write("Hello World"); // Should succeed
+        bluePen.close();              // Closes pen
         
-        System.out.println("\n=== Testing Gel Pen ===");
-        Pen rorito = new GelPen("Rorito");
-        rorito.start();
-        for (int i = 0; i < 21; i++) { // GelPen reduces 5.0 per write, so 100 / 5 = 20 writes before empty
-            rorito.write("Line " + (i + 1));
+        System.out.println("\n=== Testing Gel Pen & Color Change ===");
+        Pen redGelPen = new GelPen(Color.RED);
+        redGelPen.start();
+        for (int i = 0; i < 21; i++) { // GelPen reduces 5.0 per write
+            redGelPen.write("Line " + (i + 1));
         }
         
-        // At this point rorito should be EMPTY
-        rorito.write("One more line");
+        // At this point it should be EMPTY
+        redGelPen.write("One more line");
         
-        if (rorito instanceof Refillable) {
-            ((Refillable) rorito).refill(true); // Refill completely
+        // Refill and change color!
+        if (redGelPen instanceof Refillable) {
+            ((Refillable) redGelPen).refill(Color.BLACK); 
         }
         
-        rorito.start(); // Open again
-        rorito.write("Back in business!");
-        rorito.close();
+        redGelPen.start(); 
+        redGelPen.write("Back in business with new color!");
+        redGelPen.close();
         
-        System.out.println("\n=== Testing Fountain Pen ===");
-        Pen parker = new FountainPen("Parker");
-        parker.start();
-        parker.write("Signing a very important document.");
-        parker.close();
+        System.out.println("\n=== Testing Use & Throw Pen ===");
+        Pen disposable = new UseAndThrowPen(Color.GREEN);
+        disposable.start();
+        disposable.write("Using a disposable pen.");
+        disposable.close();
+        // disposable.refill() does not exist!
     }
 }

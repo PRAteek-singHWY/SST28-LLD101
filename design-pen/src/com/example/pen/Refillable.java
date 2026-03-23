@@ -1,5 +1,5 @@
 package com.example.pen;
 
 public interface Refillable {
-    void refill(boolean fully);
+    void refill(Color newColor);
 }
